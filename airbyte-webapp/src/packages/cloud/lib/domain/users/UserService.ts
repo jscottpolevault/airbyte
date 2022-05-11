@@ -57,7 +57,6 @@ class UserService extends AirbyteRequestService {
         this.fetch<User>(`web_backend/cloud_workspaces/invite_with_signin_link`, {
           email: user.email,
           workspaceId,
-          continueUrl: `${window.location.origin}/account_setup`,
         })
       )
     );

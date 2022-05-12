@@ -29,6 +29,7 @@ import { ValuesProps } from "hooks/services/useConnectionHook";
 import { useCurrentWorkspace } from "services/workspaces/WorkspacesService";
 
 type FormikConnectionFormValues = {
+  name?: string;
   schedule?: ScheduleProperties | null;
   prefix: string;
   syncCatalog: SyncSchema;
@@ -69,6 +70,7 @@ function useDefaultTransformation(): Transformation {
 
 const connectionValidationSchema = yup
   .object({
+    name: yup.string().required("form.empty.error"),
     schedule: yup
       .object({
         units: yup.number().required("form.empty.error"),
@@ -270,6 +272,7 @@ const useInitialValues = (
 
   return useMemo(() => {
     const initialValues: FormikConnectionFormValues = {
+      name: connection.name,
       syncCatalog: initialSchema,
       schedule: connection.schedule !== undefined ? connection.schedule : DEFAULT_SCHEDULE,
       prefix: connection.prefix || "",
@@ -278,6 +281,10 @@ const useInitialValues = (
     };
 
     const operations = connection.operations ?? [];
+
+    if (!initialValues.name) {
+      initialValues.name = `${connection.source.name} <> ${connection.destination.name}`;
+    }
 
     if (destDefinition.supportsDbt) {
       initialValues.transformations = getInitialTransformations(operations);

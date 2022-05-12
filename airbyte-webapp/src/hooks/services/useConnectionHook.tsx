@@ -30,6 +30,7 @@ export const connectionsKeys = {
 };
 
 export type ValuesProps = {
+  name?: string;
   schedule: ScheduleProperties | null;
   prefix: string;
   syncCatalog: SyncSchema;

@@ -272,7 +272,7 @@ const useInitialValues = (
 
   return useMemo(() => {
     const initialValues: FormikConnectionFormValues = {
-      name: connection.name,
+      name: connection.name ?? `${connection.source.name} <> ${connection.destination.name}`,
       syncCatalog: initialSchema,
       schedule: connection.schedule !== undefined ? connection.schedule : DEFAULT_SCHEDULE,
       prefix: connection.prefix || "",
@@ -281,10 +281,6 @@ const useInitialValues = (
     };
 
     const operations = connection.operations ?? [];
-
-    if (!initialValues.name) {
-      initialValues.name = `${connection.source.name} <> ${connection.destination.name}`;
-    }
 
     if (destDefinition.supportsDbt) {
       initialValues.transformations = getInitialTransformations(operations);

@@ -83,7 +83,7 @@ const MainRoutes: React.FC = () => {
   useFeatureRegisterValues(features);
 
   return (
-    <ApiErrorBoundary onReset={reset}>
+    <ApiErrorBoundary onReset={reset} clearOnLocationChange>
       <Routes>
         <Route path={`${RoutePaths.Destination}/*`} element={<DestinationPage />} />
         <Route path={`${RoutePaths.Source}/*`} element={<SourcesPage />} />

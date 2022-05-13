@@ -4,6 +4,7 @@ import { useEffectOnce } from "react-use";
 import styled from "styled-components";
 
 import { Button } from "components";
+import ApiErrorBoundary from "components/ApiErrorBoundary";
 import HeadTitle from "components/HeadTitle";
 import LoadingPage from "components/LoadingPage";
 
@@ -95,25 +96,27 @@ const OnboardingPage: React.FC = () => {
         <StepsCounter steps={steps} currentStep={currentStep} />
 
         <Suspense fallback={<LoadingPage />}>
-          {currentStep === StepType.INSTRUCTION && (
-            <WelcomeStep onNextStep={() => setCurrentStep(StepType.CREATE_SOURCE)} />
-          )}
-          {currentStep === StepType.CREATE_SOURCE && (
-            <SourceStep
-              onSuccess={() => setAnimateExit(true)}
-              onNextStep={() => setCurrentStep(StepType.CREATE_DESTINATION)}
-            />
-          )}
-          {currentStep === StepType.CREATE_DESTINATION && (
-            <DestinationStep
-              onSuccess={() => setAnimateExit(true)}
-              onNextStep={() => setCurrentStep(StepType.SET_UP_CONNECTION)}
-            />
-          )}
-          {currentStep === StepType.SET_UP_CONNECTION && (
-            <ConnectionStep onNextStep={() => setCurrentStep(StepType.FINAl)} />
-          )}
-          {currentStep === StepType.FINAl && <FinalStep />}
+          <ApiErrorBoundary>
+            {currentStep === StepType.INSTRUCTION && (
+              <WelcomeStep onNextStep={() => setCurrentStep(StepType.CREATE_SOURCE)} />
+            )}
+            {currentStep === StepType.CREATE_SOURCE && (
+              <SourceStep
+                onSuccess={() => setAnimateExit(true)}
+                onNextStep={() => setCurrentStep(StepType.CREATE_DESTINATION)}
+              />
+            )}
+            {currentStep === StepType.CREATE_DESTINATION && (
+              <DestinationStep
+                onSuccess={() => setAnimateExit(true)}
+                onNextStep={() => setCurrentStep(StepType.SET_UP_CONNECTION)}
+              />
+            )}
+            {currentStep === StepType.SET_UP_CONNECTION && (
+              <ConnectionStep onNextStep={() => setCurrentStep(StepType.FINAl)} />
+            )}
+            {currentStep === StepType.FINAl && <FinalStep />}
+          </ApiErrorBoundary>
         </Suspense>
 
         <Footer>

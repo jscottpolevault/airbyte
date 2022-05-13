@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FormattedMessage } from "react-intl";
 
 import { ConnectionConfiguration } from "core/domain/connection";
 import { JobInfo } from "core/domain/job";
@@ -10,9 +9,6 @@ import { useSourceDefinitionList } from "services/connector/SourceDefinitionServ
 import { useGetSourceDefinitionSpecificationAsync } from "services/connector/SourceDefinitionSpecificationService";
 import { createFormErrorMessage } from "utils/errorStatusMessage";
 import { ConnectorCard } from "views/Connector/ConnectorCard";
-
-import HighlightedText from "./HighlightedText";
-import TitlesBlock from "./TitlesBlock";
 
 type IProps = {
   onSuccess: () => void;
@@ -81,32 +77,18 @@ const SourceStep: React.FC<IProps> = ({ onNextStep, onSuccess }) => {
   const errorMessage = error ? createFormErrorMessage(error) : "";
 
   return (
-    <>
-      <TitlesBlock
-        title={
-          <FormattedMessage
-            id="onboarding.createFirstSource"
-            values={{
-              name: (name: React.ReactNode) => <HighlightedText>{name}</HighlightedText>,
-            }}
-          />
-        }
-      >
-        <FormattedMessage id="onboarding.createFirstSource.text" />
-      </TitlesBlock>
-      <ConnectorCard
-        full
-        jobInfo={LogsRequestError.extractJobInfo(error)}
-        onServiceSelect={onServiceSelect}
-        onSubmit={onSubmitForm}
-        formType="source"
-        availableServices={sourceDefinitions}
-        hasSuccess={successRequest}
-        errorMessage={errorMessage}
-        selectedConnectorDefinitionSpecification={sourceDefinitionSpecification}
-        isLoading={isLoading}
-      />
-    </>
+    <ConnectorCard
+      full
+      jobInfo={LogsRequestError.extractJobInfo(error)}
+      onServiceSelect={onServiceSelect}
+      onSubmit={onSubmitForm}
+      formType="source"
+      availableServices={sourceDefinitions}
+      hasSuccess={successRequest}
+      errorMessage={errorMessage}
+      selectedConnectorDefinitionSpecification={sourceDefinitionSpecification}
+      isLoading={isLoading}
+    />
   );
 };
 

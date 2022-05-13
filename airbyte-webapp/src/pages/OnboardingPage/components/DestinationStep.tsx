@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FormattedMessage } from "react-intl";
 
 import { ConnectionConfiguration } from "core/domain/connection";
 import { JobInfo } from "core/domain/job";
@@ -9,9 +8,6 @@ import { useDestinationDefinitionList } from "services/connector/DestinationDefi
 import { useGetDestinationDefinitionSpecificationAsync } from "services/connector/DestinationDefinitionSpecificationService";
 import { createFormErrorMessage } from "utils/errorStatusMessage";
 import { ConnectorCard } from "views/Connector/ConnectorCard";
-
-import HighlightedText from "./HighlightedText";
-import TitlesBlock from "./TitlesBlock";
 
 type Props = {
   onNextStep: () => void;
@@ -82,31 +78,17 @@ const DestinationStep: React.FC<Props> = ({ onNextStep, onSuccess }) => {
   const errorMessage = error ? createFormErrorMessage(error) : null;
 
   return (
-    <>
-      <TitlesBlock
-        title={
-          <FormattedMessage
-            id="onboarding.createFirstDestination"
-            values={{
-              name: (name: React.ReactNode[]) => <HighlightedText>{name}</HighlightedText>,
-            }}
-          />
-        }
-      >
-        <FormattedMessage id="onboarding.createFirstDestination.text" />
-      </TitlesBlock>
-      <ConnectorCard
-        full
-        formType="destination"
-        onServiceSelect={onDropDownSelect}
-        onSubmit={onSubmitForm}
-        hasSuccess={successRequest}
-        availableServices={destinationDefinitions}
-        errorMessage={errorMessage}
-        selectedConnectorDefinitionSpecification={destinationDefinitionSpecification}
-        isLoading={isLoading}
-      />
-    </>
+    <ConnectorCard
+      full
+      formType="destination"
+      onServiceSelect={onDropDownSelect}
+      onSubmit={onSubmitForm}
+      hasSuccess={successRequest}
+      availableServices={destinationDefinitions}
+      errorMessage={errorMessage}
+      selectedConnectorDefinitionSpecification={destinationDefinitionSpecification}
+      isLoading={isLoading}
+    />
   );
 };
 

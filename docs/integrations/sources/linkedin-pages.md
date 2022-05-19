@@ -16,6 +16,7 @@ This Source is capable of syncing the following data as streams:
 * [Share Statistics](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/share-statistics?tabs=http#retrieve-lifetime-share-statistics)
 * [Shares (Latest 50)](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/share-api?tabs=http#find-shares-by-owner)
 * [Total Follower Count](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/organization-lookup-api?tabs=http#retrieve-organization-follower-count)
+* [UGC Posts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/ugc-post-api?tabs=http#find-ugc-posts-by-authors)
 
 ### NOTE:
 
@@ -59,7 +60,7 @@ After 5 unsuccessful attempts - the connector will stop the sync operation. In s
 
 ## Getting started
 The API user account should be assigned the following permissions for the API endpoints:
-Endpoints such as: `Organization Lookup API`, `Follower Statistics`, `Page Statistics`, `Share Statistics`, `Shares` require these permissions:
+Endpoints such as: `Organization Lookup API`, `Follower Statistics`, `Page Statistics`, `Share Statistics`, `Shares`, `UGC Posts` require these permissions:
 * `r_organization_social`: Retrieve your organization's posts, comments, reactions, and other engagement data.
 * `rw_organization_admin`: Manage your organization's pages and retrieve reporting data.
 
@@ -107,6 +108,6 @@ The source LinkedIn Pages can use either the `client_id`, `client_secret` and `r
 
 ## Changelog
 
-| Version | Date       | Pull Request                                           | Subject                                                                                                           |
-| :------ | :--------- | :----------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| dev   | 2022-05-16 |  | Initial Connector Submission  |
+| Version | Date       | Pull Request                                             | Subject                                                    |
+| :------ | :--------- | :------------------------------------------------------- | :--------------------------------------------------------- |
+| dev     | 2022-05-16 |[#12894](https://github.com/airbytehq/airbyte/pull/12894) |     New Source: LinkedIn Pages #12894                      |

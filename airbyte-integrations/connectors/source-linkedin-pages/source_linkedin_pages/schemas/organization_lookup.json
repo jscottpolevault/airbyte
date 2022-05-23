@@ -1,0 +1,206 @@
+{
+  "type": ["null", "object"],
+  "properties": {
+    "vanityName": {
+      "type": ["null", "string"]
+    },
+    "localizedName": {
+      "type": ["null", "string"]
+    },
+    "website": {
+      "type": ["null", "object"],
+      "properties": {
+        "localized": {
+          "type": ["null", "object"],
+          "properties": {
+            "en_US": {
+              "type": ["null", "string"]
+            }
+          }
+        },
+        "preferredLocale": {
+          "type": ["null", "object"],
+          "properties": {
+            "country": {
+              "type": ["null", "string"]
+            },
+            "language": {
+              "type": ["null", "string"]
+            }
+          }
+        }
+      }
+    },
+    "foundedOn": {
+      "type": ["null", "object"],
+      "properties": {
+        "year": {
+          "type": ["null", "integer"]
+        }
+      }
+    },
+    "groups": {
+      "type": ["null", "array"],
+      "items": {}
+    },
+    "description": {
+      "type": ["null", "object"],
+      "properties": {
+        "localized": {
+          "type": ["null", "object"],
+          "properties": {
+            "en_US": {
+              "type": ["null", "string"]
+            }
+          }
+        },
+        "preferredLocale": {
+          "type": ["null", "object"],
+          "properties": {
+            "country": {
+              "type": ["null", "string"]
+            },
+            "language": {
+              "type": ["null", "string"]
+            }
+          }
+        }
+      }
+    },
+    "versionTag": {
+      "type": ["null", "string"]
+    },
+    "coverPhotoV2": {
+      "type": ["null", "object"],
+      "properties": {
+        "cropped": {
+          "type": ["null", "string"]
+        },
+        "original": {
+          "type": ["null", "string"]
+        },
+        "cropInfo": {
+          "type": ["null", "object"],
+          "properties": {
+            "x": {
+              "type": ["null", "integer"]
+            },
+            "width": {
+              "type": ["null", "integer"]
+            },
+            "y": {
+              "type": ["null", "integer"]
+            },
+            "height": {
+              "type": ["null", "integer"]
+            }
+          }
+        }
+      }
+    },
+    "defaultLocale": {
+      "type": ["null", "object"],
+      "properties": {
+        "country": {
+          "type": ["null", "string"]
+        },
+        "language": {
+          "type": ["null", "string"]
+        }
+      }
+    },
+    "organizationType": {
+      "type": ["null", "string"]
+    },
+    "alternativeNames": {
+      "type": ["null", "array"],
+      "items": {}
+    },
+    "specialties": {
+      "type": ["null", "array"],
+      "items": {}
+    },
+    "staffCountRange": {
+      "type": ["null", "string"]
+    },
+    "localizedSpecialties": {
+      "type": ["null", "array"],
+      "items": {}
+    },
+    "industries": {
+      "type": ["null", "array"],
+      "items": {}
+    },
+    "name": {
+      "type": ["null", "object"],
+      "properties": {
+        "localized": {
+          "type": ["null", "object"],
+          "properties": {
+            "en_US": {
+              "type": ["null", "string"]
+            }
+          }
+        },
+        "preferredLocale": {
+          "type": ["null", "object"],
+          "properties": {
+            "country": {
+              "type": ["null", "string"]
+            },
+            "language": {
+              "type": ["null", "string"]
+            }
+          }
+        }
+      }
+    },
+    "primaryOrganizationType": {
+      "type": ["null", "string"]
+    },
+    "locations": {
+      "type": ["null", "array"],
+      "items": {}
+    },
+    "id": {
+      "type": ["null", "integer"]
+    },
+    "localizedDescription": {
+      "type": ["null", "string"]
+    },
+    "$URN": {
+      "type": ["null", "string"]
+    },
+    "localizedWebsite": {
+      "type": ["null", "string"]
+    },
+    "logoV2": {
+      "type": ["null", "object"],
+      "properties": {
+        "cropped": {
+          "type": ["null", "string"]
+        },
+        "original": {
+          "type": ["null", "string"]
+        },
+        "cropInfo": {
+          "type": ["null", "object"],
+          "properties": {
+            "x": {
+              "type": ["null", "integer"]
+            },
+            "width": {
+              "type": ["null", "integer"]
+            },
+            "y": {
+              "type": ["null", "integer"]
+            },
+            "height": {
+              "type": ["null", "integer"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

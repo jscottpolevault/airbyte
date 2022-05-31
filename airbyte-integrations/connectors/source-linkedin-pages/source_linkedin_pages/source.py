@@ -34,9 +34,6 @@ class LinkedinPagesStream(HttpStream, ABC):
         """Returns the API endpoint path for stream, from `endpoint` class attribute."""
         return self.endpoint
 
-    def next_page_token(self, response: requests.Response) -> Optional[Mapping[str, Any]]:
-        return None
-
     def parse_response(
         self,
         response: requests.Response,

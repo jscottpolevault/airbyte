@@ -19,6 +19,7 @@ class LinkedinPagesStream(HttpStream, ABC):
 
     url_base = "https://api.linkedin.com/v2/"
     primary_key = None
+    records_limit = 100
 
     def __init__(self, config):
         super().__init__(authenticator=config.get("authenticator"))
@@ -42,6 +43,26 @@ class LinkedinPagesStream(HttpStream, ABC):
     ) -> Iterable[Mapping]:
         return [response.json()]
 
+    def next_page_token(self, response: requests.Response) -> Optional[Mapping[str, Any]]:
+        """
+        To paginate through results, begin with a start value of 0 and a count value of N.
+        To get the next page, set start value to N, while the count value stays the same.
+        We have reached the end of the dataset when the response contains fewer elements than the `count` parameter request.
+        https://docs.microsoft.com/en-us/linkedin/shared/api-guide/concepts/pagination?context=linkedin/marketing/context
+        """
+        parsed_response = response.json()
+        if len(parsed_response.get("elements")) < self.records_limit:
+            return None
+        return {"start": parsed_response.get("paging").get("start") + self.records_limit}
+
+    def request_params(
+        self, stream_state: Mapping[str, Any], next_page_token: Mapping[str, Any] = None, **kwargs
+    ) -> MutableMapping[str, Any]:
+        params = {"count": self.records_limit}
+        if next_page_token:
+            params.update(**next_page_token)
+        return params
+
     def should_retry(self, response: requests.Response) -> bool:
         if response.status_code == 429:
             error_message = (
@@ -55,6 +76,9 @@ class LinkedinPagesStream(HttpStream, ABC):
         return super().should_retry(response)
 
 class OrganizationLookup(LinkedinPagesStream):
+    
+    def next_page_token(self, response: requests.Response) -> Optional[Mapping[str, Any]]:
+        return None
 
     def path(self, stream_state: Mapping[str, Any], **kwargs) -> MutableMapping[str, Any]:
     
@@ -86,7 +110,7 @@ class Shares(LinkedinPagesStream):
 
     def path(self, stream_state: Mapping[str, Any], **kwargs) -> MutableMapping[str, Any]:
     
-        path = f"shares?q=owners&owners=urn%3Ali%3Aorganization%3A{self.org}&sortBy=LAST_MODIFIED&sharesPerOwner=50"
+        path = f"shares?q=owners&owners=urn%3Ali%3Aorganization%3A{self.org}&sortBy=LAST_MODIFIED&sharesPerOwner=1000"
         return path
 
 class TotalFollowerCount(LinkedinPagesStream):
@@ -96,11 +120,14 @@ class TotalFollowerCount(LinkedinPagesStream):
         path = f"networkSizes/urn:li:organization:{self.org}?edgeType=CompanyFollowedByMember"
         return path
     
+    def next_page_token(self, response: requests.Response) -> Optional[Mapping[str, Any]]:
+        return None
+
 class UgcPosts(LinkedinPagesStream):
 
     def path(self, stream_state: Mapping[str, Any], **kwargs) -> MutableMapping[str, Any]:
     
-        path = f"ugcPosts?q=authors&authors=List(urn%3Ali%3Aorganization%3A{self.org})&sortBy=LAST_MODIFIED&count=50"
+        path = f"ugcPosts?q=authors&authors=List(urn%3Ali%3Aorganization%3A{self.org})&sortBy=LAST_MODIFIED"
         return path
 
     def request_headers(self, stream_state: Mapping[str, Any], **kwargs) -> Mapping[str, Any]:
@@ -109,7 +136,6 @@ class UgcPosts(LinkedinPagesStream):
         we must use MODIFIED header: {'X-RestLi-Protocol-Version': '2.0.0'}
         """
         return {"X-RestLi-Protocol-Version": "2.0.0"} if self.org else {}
-
 
 class SourceLinkedinPages(AbstractSource):
     """
